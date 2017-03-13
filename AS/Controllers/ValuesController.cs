@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace AS
 {
     [Route(Controller)]
-    public class ValuesController : BaseController
+    public class ValuesController : ASController
     {
         
         // GET api/values
         [HttpGet()]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return this.Ok(new string[] { "value1", "value2" });
         }
 
         // POST api/values

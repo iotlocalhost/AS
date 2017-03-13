@@ -1,16 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Web.Http;
 
 namespace AS
 {
-    public class BaseController : ApiController
+    /// <summary>
+    /// Non auth controller
+    /// </summary>
+    public class ASController : System.Web.Http.ApiController
     {
         public const string Action = "[action]";
         public const string Controller = "[controller]";
     }
 
-    public class AuthController: BaseController
+    /// <summary>
+    /// Auth controller
+    /// </summary>
+    public class AuthController: ASController
     {
 
+    }
+
+    /// <summary>
+    /// Action filter controller
+    /// </summary>
+    public class ActionFilter : IActionFilter
+    {
+        public void OnActionExecuted(ActionExecutedContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnActionExecuting(ActionExecutingContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
