@@ -12,6 +12,8 @@ namespace AS
 {
     public class Startup
     {
+        public const string ApiPrefix = "api";
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -40,6 +42,7 @@ namespace AS
             services.AddMvc();
         }
 
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -50,7 +53,17 @@ namespace AS
 
             app.UseApplicationInsightsExceptionTelemetry();
 
-            app.UseMvc();
+            app.Map($"/{ApiPrefix}", api =>
+            {
+                api.UseMvc(routes =>
+                {
+                    routes.MapWebApiRoute(string.Empty, "{controller}/{action}");
+                });
+            });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapWebApiRoute(string.Empty, "{controller}/{action}");
+            //});
         }
     }
 }
