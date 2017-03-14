@@ -60,10 +60,6 @@ namespace AS
                     routes.MapWebApiRoute(string.Empty, "{controller}/{action}");
                 });
             });
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapWebApiRoute(string.Empty, "{controller}/{action}");
-            //});
         }
     }
 }
