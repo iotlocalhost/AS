@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +8,7 @@ namespace AS
 {
     public class Startup
     {
-        public const string ApiPrefix = "api";
+        private const string _apiPrefix = "/api";
 
         public Startup(IHostingEnvironment env)
         {
@@ -39,7 +35,11 @@ namespace AS
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+            //MVC pattern to api
             services.AddMvc();
+
+            services.AddApiVersioning();
+
         }
 
 
@@ -53,7 +53,7 @@ namespace AS
 
             app.UseApplicationInsightsExceptionTelemetry();
 
-            app.Map($"/{ApiPrefix}", api =>
+            app.Map(_apiPrefix, api =>
             {
                 api.UseMvc(routes =>
                 {

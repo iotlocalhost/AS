@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Web.Http;
 
@@ -8,7 +7,7 @@ namespace AS
     /// <summary>
     /// Non auth controller
     /// </summary>
-    public class ASController : System.Web.Http.ApiController
+    public class ASController : ApiController
     {
         public const string Action = "[action]";
         public const string Controller = "[controller]";
