@@ -12,7 +12,7 @@ namespace AS
 {
     public class Startup
     {
-        public const string ApiPrefix = "api";
+        public const string _apiPrefix = "/api";
 
         public Startup(IHostingEnvironment env)
         {
@@ -53,7 +53,7 @@ namespace AS
 
             app.UseApplicationInsightsExceptionTelemetry();
 
-            app.Map($"/{ApiPrefix}", api =>
+            app.Map(_apiPrefix, api =>
             {
                 api.UseMvc(routes =>
                 {
