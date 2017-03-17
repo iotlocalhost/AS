@@ -38,7 +38,7 @@ namespace AS
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.Configure<ASServiceOptionConfig>(opt => { opt.Option1 });
+            services.Configure<ServiceOptionConfig>(opt => { opt.Option1; });
             services.AddMvc();
         }
 
