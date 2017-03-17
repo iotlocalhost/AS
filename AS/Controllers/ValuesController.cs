@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AS
 {
-    [ApiVersion("")]
     [Route(Controller)]
     public class ValuesController : ASController
     {
-        [EnableQuery()]
+        
         // GET api/values
         [HttpGet()]
         public IActionResult Get()
