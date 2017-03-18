@@ -3,15 +3,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AS
 {
-    [Route(Controller)]
     public class ValuesController : ASController
     {
         
         // GET api/values
-        [HttpGet()]
+        [HttpGet]
         public IActionResult Get()
         {
-            return this.Ok(new string[] { "value1", "value2" });
+            return this.Ok(new string[] { "V1", "value2" });
+        }
+
+        // GET api/values
+        [HttpGet, MapToApiVersion(ApiVers.Version2)]
+        public IActionResult GetV2()
+        {
+            return this.Ok(new string[] { "V2", "value2" });
         }
 
         // POST api/values

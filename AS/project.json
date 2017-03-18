@@ -17,7 +17,8 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.1",
-    "Microsoft.OData.Core": "7.0.0"
+    "Microsoft.OData.Core": "7.0.0",
+    "Microsoft.AspNetCore.Mvc.Versioning": "1.0.3"
   },
 
   "tools": {

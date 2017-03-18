@@ -12,8 +12,6 @@ namespace AS
 {
     public class Startup
     {
-        public const string _apiPrefix = "/api";
-
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -38,7 +36,8 @@ namespace AS
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.Configure<ServiceOptionConfig>(opt => { opt.Option1; });
+            //services.AddApiVersioning()
+            //services.Configure<ServiceConfigOption>(p=>p.Option1);
             services.AddMvc();
         }
 
@@ -53,19 +52,29 @@ namespace AS
 
             app.UseApplicationInsightsExceptionTelemetry();
 
-            app.Map(_apiPrefix, api =>
+            //Add subscribe reprefix api service
+            app.Map(ApiRoutes.Prefix, api =>
             {
                 api.UseMvc(routes =>
                 {
-                    routes.MapWebApiRoute(string.Empty, "{controller}/{action}");
+                    //Routing all api service
+                    routes.MapWebApiRoute(string.Empty, ApiRoutes.Template);
                 });
             });
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapWebApiRoute(string.Empty, "{controller}/{action}");
-            //});
         }
     }
 
 
+    public class ApiRoutes
+    {
+        public const string Prefix = "/api";
+        public const string Template = "{controller}/{action}";
+        public const string Version = "v{version:apiVersion}";
+    }
+
+    public class ApiServiceConfigOption
+    {
+        public string Option1 { get; set; }
+        public int Option2 { get; set; }
+    }
 }
