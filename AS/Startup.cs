@@ -64,12 +64,12 @@ namespace AS
         }
     }
 
-
+    
     public class ApiRoutes
     {
         public const string Prefix = "/api";
-        public const string Template = "{controller}/{action}";
-        public const string Version = "v{version:apiVersion}";
+        public const string Template = "/{controller}/{action}";
+        public const string Version = "/v{version:apiVersion}";
     }
 
     public class ApiServiceConfigOption
