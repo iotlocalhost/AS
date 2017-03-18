@@ -35,9 +35,8 @@ namespace AS
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
-            //services.AddApiVersioning()
-            //services.Configure<ServiceConfigOption>(p=>p.Option1);
+            //services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddApiVersioning();
             services.AddMvc();
         }
 
@@ -48,9 +47,8 @@ namespace AS
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseApplicationInsightsRequestTelemetry();
-
-            app.UseApplicationInsightsExceptionTelemetry();
+            //app.UseApplicationInsightsRequestTelemetry();
+            //app.UseApplicationInsightsExceptionTelemetry();
 
             //Add subscribe reprefix api service
             app.Map(ApiRoutes.Prefix, api =>
@@ -62,19 +60,17 @@ namespace AS
                 });
             });
         }
-    }
 
-    
-    public class ApiRoutes
-    {
-        public const string Prefix = "/api";
-        public const string Template = "{controller}/{action}";
-        public const string VersTemplate = "v{version:apiVersion}/{controller}/{action}";
-    }
+        sealed class ApiRoutes
+        {
+            public const string Prefix = "/api";
+            public const string Template = "{controller}/{action}";
+        }
 
-    public class ApiServiceConfigOption
-    {
-        public string Option1 { get; set; }
-        public int Option2 { get; set; }
+        sealed class ApiServiceConfigOption
+        {
+            public string Option1 { get; set; }
+            public int Option2 { get; set; }
+        }
     }
 }
