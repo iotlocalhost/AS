@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,11 +16,17 @@ namespace AS
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsEnvironment("Development"))
-            {
-                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
+            if (env.IsDevelopment())
                 builder.AddApplicationInsightsSettings(developerMode: true);
-            }
+
+            else if (env.IsStaging())
+                builder.AddApplicationInsightsSettings(developerMode: true);
+
+            else if (env.IsProduction())
+                builder.AddApplicationInsightsSettings(developerMode: true);
+
+            else
+                builder.AddApplicationInsightsSettings(developerMode: true);
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -31,40 +34,28 @@ namespace AS
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            //services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddApiVersioning();
+            //Add framework service
+            services.AddRouting();
             services.AddMvc();
+            //Add application service
+            //services.AddApiVersioning();
         }
 
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
+            //Use framework service
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            //app.UseApplicationInsightsRequestTelemetry();
-            //app.UseApplicationInsightsExceptionTelemetry();
-
-            //Add subscribe reprefix api service
-            app.Map(ApiRoutes.Prefix, api =>
+            app.UseMvc(routes =>
             {
-                api.UseMvc(routes =>
-                {
-                    //Routing all api service
-                    routes.MapWebApiRoute(string.Empty, ApiRoutes.Template);
-                });
+                routes.MapWebApiRoute(string.Empty, "{controller}/{action}");
             });
-        }
 
-        sealed class ApiRoutes
-        {
-            public const string Prefix = "/api";
-            public const string Template = "{controller}/{action}";
+            //Use application service
         }
 
         sealed class ApiServiceConfigOption

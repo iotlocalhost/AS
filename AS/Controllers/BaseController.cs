@@ -5,48 +5,30 @@ using System.Web.Http;
 
 namespace AS
 {
+    //[HttpDelete]
+    //[HttpGet]
+    //[HttpHead]
+    //[HttpOptions]
+    //[HttpPatch]
+    //[HttpPost]
+    //[HttpPut]
     /// <summary>
     /// Default api template and not for all controller define defaul
     /// </summary>
     //[EnableQuery]
-    [ApiVersion(Api.Version2)]
     [Route(Controller)]
     public class ASController : ApiController
     {
-        // GET api/values
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return this.Ok(new string[] { "V1", "value2" });
-        } 
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-
         public const string Action = "[action]";
-        public const string Controller = "[controller]";
+        public const string Controller = "api/[controller]";
 
         /// <summary>
-        /// Default existed version 1.0
+        /// Option to version of api service. Default thinking version 1.0 is existed.
         /// </summary>
         sealed class Api
         {
             public const string Version2 = "2.0";
+            public const string Version3 = "3.0";
         }
     }
 

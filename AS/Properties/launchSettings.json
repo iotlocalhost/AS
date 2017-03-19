@@ -11,9 +11,12 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "Staging": "Staging",
+        "Production": "Production",
+        "Development": "Development",
+        "sf": "asf"
       }
     },
     "AS": {
@@ -21,8 +24,22 @@
       "launchBrowser": true,
       "launchUrl": "http://localhost:5000/api/values",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "Staging": "Staging",
+        "Production": "Production",
+        "Development": "Development"
       }
+    },
+    "test": {
+      "commandName": "Executable"
+    },
+    "localhost": {
+      "commandName": "Executable"
+    },
+    "azure": {
+      "commandName": "Executable"
+    },
+    "iis": {
+      "commandName": "Executable"
     }
   }
 }
