@@ -2,15 +2,29 @@
 
 namespace AS
 {
+    [ApiVersion(Api.Version1)]
     [ApiVersion(Api.Version2)]
     [ApiVersion(Api.Version3)]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class ValuesController : ASController
     {
-        // GET api/values
         [HttpGet]
         public IActionResult GetV1()
         {
-            return this.Ok(new string[] { "V1", "value2" });
+            return this.Ok(new string[] { "V1", "values" });
+        }
+
+        [HttpGet, MapToApiVersion(Api.Version1)]
+        public IActionResult GetV2()
+        {
+            return this.Ok(new string[] { Api.Version2, "values" });
+        }
+
+        // GET api/values
+        [HttpGet, MapToApiVersion(Api.Version3)]
+        public IActionResult GetV3()
+        {
+            return this.Ok(new string[] { Api.Version3, "values" });
         }
 
         // POST api/values
