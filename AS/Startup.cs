@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -36,26 +39,29 @@ namespace AS
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //Add framework service
+            // Add framework service
             services.AddRouting();
             services.AddMvc();
-            //Add application service
-            //services.AddApiVersioning();
+
+            // Add application service
+            services.AddApiVersioning(o => o.ApiVersionReader = new HeaderApiVersionReader("api-version"));
+
+            // Add Application Insights data collection services to the services container.
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
 
-            //Use framework service
+            // Use framework service
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             app.UseMvc(routes =>
             {
-                routes.MapWebApiRoute(string.Empty, "{controller}/{action}");
+                routes.MapWebApiRoute(env.EnvironmentName, "{controller}/{action}");
             });
 
-            //Use application service
+            // Use application service
         }
 
         sealed class ApiServiceConfigOption

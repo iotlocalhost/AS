@@ -16,16 +16,16 @@ namespace AS
     /// Default api template and not for all controller define defaul
     /// </summary>
     //[EnableQuery]
-    [Route(Controller)]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class ASController : ApiController
     {
         public const string Action = "[action]";
-        public const string Controller = "api/[controller]";
 
         /// <summary>
         /// Option to version of api service. Default thinking version 1.0 is existed.
         /// </summary>
-        sealed class Api
+        public class Api
         {
             public const string Version2 = "2.0";
             public const string Version3 = "3.0";

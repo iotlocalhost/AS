@@ -2,12 +2,13 @@
 
 namespace AS
 {
-    [Route("values")]
+    [ApiVersion(Api.Version2)]
+    [ApiVersion(Api.Version3)]
     public class ValuesController : ASController
     {
         // GET api/values
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetV1()
         {
             return this.Ok(new string[] { "V1", "value2" });
         }
