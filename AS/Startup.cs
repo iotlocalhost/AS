@@ -44,7 +44,7 @@ namespace AS
             services.AddMvc();
 
             // Add application service
-            services.AddApiVersioning(o => o.ApiVersionReader = new HeaderApiVersionReader("api-version"));
+            services.AddApiVersioning();
 
             // Add Application Insights data collection services to the services container.
         }

@@ -15,8 +15,6 @@ namespace AS
     //[HttpPut]
 
     //[EnableQuery]
-
-    
     public class ASController : ApiController
     {
         public class Api
